@@ -1,0 +1,130 @@
+/******************************************************************************
+
+Welcome to GDB Online.
+GDB online is an online compiler and debugger tool for C, C++, Python, Java, PHP, Ruby, Perl,
+C#, VB, Swift, Pascal, Fortran, Haskell, Objective-C, Assembly, HTML, CSS, JS, SQLite, Prolog.
+Code, Compile, Run and Debug online from anywhere in world.
+
+*******************************************************************************/
+public class Main
+{
+	public static void main(String[] args) {
+		DoublyLinkedL dl=new DoublyLinkedL();
+		dl.addToFront(10);
+		dl.addToFront(20);
+		dl.addToFront(30);
+		dl.display();
+		dl.addtoEnd(2);
+		dl.addtoEnd(5);
+		dl.display();
+		dl.addBefore(3,20);
+		dl.display();
+		
+	}
+}
+class Node{
+    public Node prev;
+    public Node next;
+    public int data;
+    
+    public Node(int data){
+        this.data=data;
+    }
+
+public Node getNext(){
+    return next;
+}
+public void setNext(Node next){
+    this.next = next;
+}
+public Node getPrev(){
+    return prev;
+}
+public void setPrev(Node prev){
+    this.prev=prev;
+}
+}
+
+class DoublyLinkedL{
+    public Node head;
+    public Node tail;
+    public int size;
+    
+    public void addToFront(int value){
+        Node n=new Node(value);
+        
+        if(head==null)
+        {
+            tail=n;
+        }
+        else
+        {
+            n.setNext(head);
+            head.setPrev(n);
+        }
+        head=n;
+        size++;
+    }
+    
+    public void addtoEnd(int value){
+        Node n=new Node(value);
+        if(tail==null)
+        {
+            head=n;
+        }
+        else
+        {
+            tail.setNext(n);
+            n.setPrev(tail);
+        }
+        tail=n;
+        size++;
+    }
+    
+    public void addBefore(int val,int cval)
+    {
+        Node n=new Node( val);
+       
+        if(head==null)
+        {
+            return ;
+        }
+         Node cur=head;
+        while(cur.data!=cval && cur!=null)
+        {
+            cur=cur.next;
+        }
+        if(cur==null)
+        {
+            return;
+        }
+         n.setNext(cur);
+         n.setPrev(cur.getPrev());
+          cur.setPrev(n);
+        if(cur==head)
+        {
+            head=n;
+        }
+        else
+        {
+        //   n.setNext(cur);
+        //  n.setPrev(cur.getPrev());
+        //   cur.setPrev(n);
+          n.getPrev().setNext(n);
+          
+        }
+        size++;
+    }
+    
+    public void display(){
+        Node cur=head;
+        while(cur!=null)
+        {
+            System.out.print(cur.data+" ");
+            cur=cur.next;
+        }
+        System.out.println();
+    }
+    
+    
+}
